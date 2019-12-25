@@ -1,25 +1,35 @@
-export const showBack=(callback)=>{
-    let docB=document.documentElement ||document.body
-    let oldScrollTop, requestFrame;
-    document.addEventListener('scroll',()=>{
-        showBackFunc()
-    },false)
 
-    document.addEventListener('touchstart',()=>{
-        showBackFunc()
-    },{passive:true})
-    
-    document.addEventListener('touchmove',()=>{
-        showBackFunc()
-    },{passive:true})
-    
-    document.addEventListener('touchend',()=>{
+export const showBack = (callback)=>{
+    // 1. 变量
+    let docB = document.documentElement || document.body;
+    let oldScrollTop, requestFrame;
+
+    // 2. 监听滚动
+    document.addEventListener('scroll', ()=>{
+        showBackFunc();
+    }, false);
+
+    // 3. 监听触摸
+    document.addEventListener('touchstart', ()=>{
+        showBackFunc();
+    },{passive:true});
+
+    document.addEventListener('touchmove', ()=>{
+        showBackFunc();
+    },{passive:true});
+
+    document.addEventListener('touchend', ()=>{
         oldScrollTop = docB.scrollTop;
-        moveEnd();    
-    },{passive:true})
+        moveEnd();
+    },{passive:true});
 
     const moveEnd = ()=>{
-       
+        /*
+         屏幕刷新率 60HZ 1000 / 60 = 16.7ms
+         屏幕刷新率 75HZ 1000 / 75 = 13.3ms
+
+         1) 函数节流
+        */
         requestFrame = requestAnimationFrame(()=>{
              if(docB.scrollTop !== oldScrollTop){
                  oldScrollTop = docB.scrollTop;
@@ -31,17 +41,17 @@ export const showBack=(callback)=>{
          });
     };
 
-    
-const showBackFunc=()=>{
-    // console.log(docB.scrollTop);
-    if(docB.scrollTop>=200){
-        callback(true)
-    }else{
-        callback(false);
-    }
-}
-}
 
+    // 判断是否到达目标点
+    const showBackFunc = ()=>{
+        // console.log(docB.scrollTop);
+        if(docB.scrollTop >= 200){
+            callback(true);
+        }else {
+            callback(false);
+        }
+    }
+};
 
 /**
  * 获取style样式
@@ -192,34 +202,28 @@ export const animate = (element, target, duration = 400, mode = 'ease-out', call
 };
 
 /*
-
-本地化存储
-
+  本地化存储
 */
-export const  setStore=(name,content)=>{
-    if(!name) return 
-    if(typeof content !=='string'){
-        content=JSON.stringify(content) 
+export const setStore = (name, content) =>{
+    if(!name) return;
+    if(typeof content !== 'string'){
+        content = JSON.stringify(content);
     }
-    window.localStorage.setItem(name,content)
-}
+    window.localStorage.setItem(name, content);
+};
 
 /*
-
-本地化获取
-
+  本地化获取
 */
-export const getStore=(name)=>{
-    if(!name) return
+export const  getStore = (name)=>{
+    if(!name) return;
     return window.localStorage.getItem(name);
-}
+};
 
 /*
-
-本地化删除
-
+  本地化删除
 */
-export const removeStore=(name)=>{
-    if(!name) return
-     return    window.localStorage.removeItem(name);
-}
+export const  removeStore = (name)=>{
+    if(!name) return;
+    return window.localStorage.removeItem(name);
+};

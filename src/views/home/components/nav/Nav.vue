@@ -1,24 +1,23 @@
 <template>
     <div class="wrapper">
-        <div class="itemWrapper" v-for="(item,index) in nav_list" :key="item.public_id">
+        <div class="itemWrapper" v-for="(nav, index) in nav_list" :key="nav.cid">
             <div class="imageWrapper">
-                <img class='image' :src="item.icon_url" :alt="item.public_name">
+                <img class="image" :src="nav.icon_url" :alt="nav.name">
             </div>
             <div class="titleWrapper">
-                <span class='title'>
-                    {{item.name}}</span>
+                <div class="title">{{nav.name}}</div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    name:'Nav',
-    props:{
-        nav_list : Array
+    export default {
+        name: "Nav",
+        props: {
+            nav_list: Array
+        }
     }
-}
 </script>
 
 <style scoped>
@@ -58,4 +57,4 @@ export default {
         white-space: nowrap;
         text-overflow: ellipsis;
     }
- </style>
+</style>

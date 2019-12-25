@@ -1,5 +1,6 @@
-import Vue from 'vue'
+import Vue from  'vue'
 
-Vue.filter('moneyFormat',(value)=>{
-    return '￥'+Number(value).toFixed(2)
-})
+// 人民币过滤器
+Vue.filter('moneyFormat', (value)=>{
+    return '¥' + Number(value).toFixed(2);
+});
